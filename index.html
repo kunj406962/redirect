@@ -103,34 +103,7 @@
     gap: 1rem;
   }
 
-  .logo-placeholder {
-    width: 110px;
-    height: 110px;
-    border-radius: 20px;
-    border: 2px solid rgba(255,255,255,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255,255,255,0.08);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 13px;
-    letter-spacing: 0.12em;
-    color: rgba(255,255,255,0.5);
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
 
-  .logo-placeholder:hover { border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.12); }
-  .logo-placeholder img { width: 100%; height: 100%; object-fit: contain; display: none; }
-  .logo-placeholder input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-
-  .logo-upload-hint {
-    font-size: 11px;
-    color: rgba(255,255,255,0.4);
-    letter-spacing: 0.06em;
-  }
 
   /* ── HEADLINE ── */
   .project-label {
@@ -352,21 +325,9 @@
     flex-shrink: 0;
     overflow: hidden;
     background: var(--gray-soft);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px;
-    color: var(--red);
-    letter-spacing: 0.02em;
     border: 2px solid rgba(188,11,42,0.12);
-    cursor: pointer;
-    position: relative;
-    transition: border-color 0.2s;
   }
-  .avatar:hover { border-color: var(--red); }
-  .avatar img { width: 100%; height: 100%; object-fit: cover; display: none; }
-  .avatar input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
 
   .card-info { flex: 1; min-width: 0; }
 
@@ -445,12 +406,7 @@
 
     <!-- LOGO -->
     <div class="logo-zone">
-      <div class="logo-placeholder" id="logoBox" title="Click to upload your logo">
-        <span id="logoText">YOUR LOGO</span>
-        <img id="logoImg" alt="Project logo">
-        <input type="file" accept="image/*" onchange="uploadLogo(event)">
-      </div>
-      <span class="logo-upload-hint">click logo to upload · red &amp; white safe</span>
+      <img src="img/logo-white.png" alt="Project logo" style="width: 110px; height: 110px; object-fit: contain;">
     </div>
 
     <!-- HEADLINE -->
@@ -516,10 +472,8 @@
       <!-- CARD 1 -->
       <div class="member-card">
         <div class="card-top">
-          <div class="avatar" title="Click to upload photo">
-            <span>AB</span>
-            <img alt="">
-            <input type="file" accept="image/*" onchange="uploadAvatar(event, this)">
+          <div class="avatar">
+            <img src="img/member1.jpg" alt="Alex Bravo">
           </div>
           <div class="card-info">
             <p class="member-name">Alex Bravo</p>
@@ -538,10 +492,8 @@
       <!-- CARD 2 -->
       <div class="member-card">
         <div class="card-top">
-          <div class="avatar" title="Click to upload photo">
-            <span>SC</span>
-            <img alt="">
-            <input type="file" accept="image/*" onchange="uploadAvatar(event, this)">
+          <div class="avatar">
+            <img src="img/member2.jpg" alt="Sofia Chen">
           </div>
           <div class="card-info">
             <p class="member-name">Sofia Chen</p>
@@ -560,10 +512,8 @@
       <!-- CARD 3 -->
       <div class="member-card">
         <div class="card-top">
-          <div class="avatar" title="Click to upload photo">
-            <span>MR</span>
-            <img alt="">
-            <input type="file" accept="image/*" onchange="uploadAvatar(event, this)">
+          <div class="avatar">
+            <img src="img/member3.jpg" alt="Marcus Reid">
           </div>
           <div class="card-info">
             <p class="member-name">Marcus Reid</p>
@@ -582,10 +532,8 @@
       <!-- CARD 4 -->
       <div class="member-card">
         <div class="card-top">
-          <div class="avatar" title="Click to upload photo">
-            <span>JL</span>
-            <img alt="">
-            <input type="file" accept="image/*" onchange="uploadAvatar(event, this)">
+          <div class="avatar">
+            <img src="img/member4.jpg" alt="Jamie Lowe">
           </div>
           <div class="card-info">
             <p class="member-name">Jamie Lowe</p>
@@ -604,10 +552,8 @@
       <!-- CARD 5 -->
       <div class="member-card">
         <div class="card-top">
-          <div class="avatar" title="Click to upload photo">
-            <span>PN</span>
-            <img alt="">
-            <input type="file" accept="image/*" onchange="uploadAvatar(event, this)">
+          <div class="avatar">
+            <img src="img/member5.jpg" alt="Priya Nair">
           </div>
           <div class="card-info">
             <p class="member-name">Priya Nair</p>
@@ -634,34 +580,7 @@
     window.scrollTo(0, 0);
   }
 
-  function uploadLogo(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = ev => {
-      const img = document.getElementById('logoImg');
-      const txt = document.getElementById('logoText');
-      img.src = ev.target.result;
-      img.style.display = 'block';
-      txt.style.display = 'none';
-    };
-    reader.readAsDataURL(file);
-  }
 
-  function uploadAvatar(e, input) {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = ev => {
-      const avatarDiv = input.closest('.avatar');
-      const img = avatarDiv.querySelector('img');
-      const initials = avatarDiv.querySelector('span');
-      img.src = ev.target.result;
-      img.style.display = 'block';
-      if (initials) initials.style.display = 'none';
-    };
-    reader.readAsDataURL(file);
-  }
 </script>
 </body>
 </html>
